@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Letter Game with QR Code</title>
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 800px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .item {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .item span {
+            display: block;
+            margin-top: 5px;
+        }
+
+        img {
+            width: 100px;
+            height: 100px;
+        }
+
+        a {
+            color: blue;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Fullscreen iframe container */
+        #iframeContainer {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            z-index: 1000;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        iframe {
+            width: 100%;
+            height: calc(100% - 60px);
+            /* Leave space for the back button */
+            border: none;
+        }
+
+        .back-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1001;
+            font-size: 16px;
+            width: 40px;
+            height: 40px;
+        }
+
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="menuContainer" class="container">
+        <div class="title">Trò chơi chữ cái</div>
+
+        <div class="item">
+            1- <a href="#" onclick="showIframe('https://example.com/1')">link: https://example.com/1</a>
+            <span>Mã qr</span>
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAYAAACz4zqnAA..." alt="QR Code 1" />
+        </div>
+        <div class="item">
+            2- <a href="#" onclick="showIframe('https://example.com/2')">link: https://example.com/2</a>
+            <span>Mã qr</span>
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAYAAACz4zqnAA..." alt="QR Code 2" />
+        </div>
+        <div class="item">
+            3- <a href="#" onclick="showIframe('https://example.com/3')">link: https://example.com/3</a>
+            <span>Mã qr</span>
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAYAAACz4zqnAA..." alt="QR Code 3" />
+        </div>
+    </div>
+
+    <!-- Iframe container that will be shown full screen when a link is selected -->
+    <div id="iframeContainer">
+        <button class="back-button" onclick="showMenu()">
+            <!-- SVG Home Icon for back button -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="white">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+            </svg>
+        </button>
+        <iframe id="displayFrame" src=""></iframe>
+    </div>
+
+    <script>
+        function showIframe (url) {
+            // Hide the menu and show the iframe container full screen
+            document.getElementById('menuContainer').style.display = 'none';
+            document.getElementById('iframeContainer').style.display = 'flex';
+
+            // Set the iframe source to the selected URL
+            document.getElementById('displayFrame').src = url;
+        }
+
+        function showMenu () {
+            // Hide the iframe container and show the menu again
+            document.getElementById('iframeContainer').style.display = 'none';
+            document.getElementById('menuContainer').style.display = 'block';
+
+            // Clear the iframe content
+            document.getElementById('displayFrame').src = '';
+        }
+    </script>
+
+</body>
+
+</html>
